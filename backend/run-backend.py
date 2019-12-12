@@ -12,7 +12,10 @@ import Hello
 class HelloI(Hello.HelloIfc):
 
     def sayHello(self, current):
-    	name='Let is try is another Aloha from Aruba'
+    	name='Hello world'
+	return name
+    def sayAloha(self, current):
+	name='Aloha'
 	return name
     #    print "Hello World!"
     #    return "Hello, World!"
