@@ -14,6 +14,7 @@ class HelloI(Hello.HelloIfc):
     def sayHello(self, current):
     	name='Hello world'
 	return name
+
     def sayAloha(self, current):
 	name='Aloha'
 	return name

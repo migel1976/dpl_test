@@ -39,7 +39,8 @@
 
     Slice.defineOperations(Hello.HelloIfc, Hello.HelloIfcPrx, iceC_Hello_HelloIfc_ids, 0,
     {
-        "sayHello": [, , , , [7], , , , , ]
+        "sayHello": [, , , , [7], , , , , ],
+        "sayAloha": [, , , , [7], , , , , ]
     });
     exports.Hello = Hello;
 }

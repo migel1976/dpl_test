@@ -8090,24 +8090,34 @@
 	    super(props);
 	    this.state = {
 	      greeting: 'none',
-	      greeting2: '--'
+	      greeting2: '--',
+	      aloha: 'none',
+	      aloha1: '--'
 	    };
 	    this.hello_prx = null;
 	    this.onClick = this.onClick.bind(this);
+	    this.onClickAloha = this.onClickAloha.bind(this);
 	  }
 
 	  componentDidMount() {
 	    getBackendPort().then(backend_port => {
-	      let backend_proxy_s = `hello:ws -h localhost -p ${backend_port}`;
+	      //что это за функция отуда она взялась
+	      let backend_proxy_s = `hello:ws -h localhost -p ${backend_port}`; //что значит hello:ws
+
 	      return window.ic.stringToProxy(backend_proxy_s);
 	    }).then(o_prx => {
-	      return Hello.HelloIfcPrx.checkedCast(o_prx);
+	      return Hello.HelloIfcPrx.checkedCast(o_prx); //откуда взялся метод HelloIfcPrx 
 	    }).then(prx => {
 	      this.hello_prx = prx;
 	      let ret = this.hello_prx.sayHello().then(ret => {
 	        //console.log("server responsed:", ret);
 	        this.setState({
 	          'greeting': ret
+	        });
+	      });
+	      let ret1 = this.hello_prx.sayAloha().then(ret => {
+	        this.setState({
+	          'aloha': ret
 	        });
 	      });
 	    });
@@ -8123,10 +8133,21 @@
 	    });
 	  }
 
+	  onClickAloha() {
+	    this.hello_prx.sayAloha().then(ret => {
+	      this.setState({
+	        aloha: ret + c.toString()
+	      });
+	      c++;
+	    });
+	  }
+
 	  render() {
-	    return react.createElement("div", null, react.createElement("h1", null, "Hello from modules"), react.createElement("h2", null, this.state.greeting), react.createElement("h2", null, this.state.greeting2), react.createElement("button", {
+	    return react.createElement("div", null, react.createElement("h1", null, "Hello from modules"), react.createElement("h2", null, this.state.greeting), react.createElement("h2", null, this.state.greeting2), react.createElement("h3", null, this.state.aloha), react.createElement("div", null, react.createElement("button", {
 	      onClick: this.onClick
-	    }, "PRESS"));
+	    }, "PRESS")), react.createElement("div", null, react.createElement("button", {
+	      onClick: this.onClickAloha
+	    }, "pressAloha")));
 	  }
 
 	}
